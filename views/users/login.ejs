@@ -6,9 +6,6 @@
         <div class="col align-self-center">
             <label for="username" class="form-label">Username</label>
               <input type="text" class="form-control" id="username" name="username" required>
-              <div class="valid-feedback">
-               looks gud
-              </div>
         </div>
       </div>
 
@@ -16,13 +13,14 @@
         <div class="col align-self-center">
             <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" name="password" required>
-              <div class="valid-feedback">
-                looks gud
-              </div>
         </div>
       </div>
       <%- include('../partials/flash')%> 
         <div class="col-12 align-self-center">
           <button class="btn btn-primary" type="submit">LOGIN</button>
-        </div>   
+        </div> 
+        <div>
+          <label for="href">New to MyBag.shop?</label>
+          <a href="register">Register</a>
+        </div>  
     </form>

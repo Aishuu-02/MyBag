@@ -5,23 +5,25 @@
     <div class="mb-3">
         <div class="col align-self-center">
             <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" required>
-              <div class="valid-feedback">
-               looks gud
-              </div>
+              <input type="text" class="form-control" placeholder="username" id="username" name="username" required>
         </div>
       </div>
 
       <div class="mb-3">
         <div class="col align-self-center">
             <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" name="password" required>
-              <div class="valid-feedback">
-                looks gud
-              </div>
+              <input type="password" class="form-control" placeholder="password" id="password" name="password" required>
         </div>
       </div>
-      <%- include('../partials/flash')%> 
+      <div class="mb-3">
+        <div class="col align-self-center">
+            <label for="secpassword" class="form-label">Reenter password</label>
+              <input type="password" class="form-control" placeholder="Reenterpassword" id="secpassword" name="repassword" required>
+        </div>
+      </div>
+      <div>
+      <%- include('../partials/flash')%>
+    </div> 
         <div class="col-12 align-self-center">
           <button class="btn btn-primary" type="submit">REGISTER</button>
         </div>   

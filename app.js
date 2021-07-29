@@ -9,6 +9,7 @@ const ejsMate = require('ejs-mate')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const Item = require('./models/item')
 
 
 const userRoutes=require('./routes/users');
@@ -46,6 +47,8 @@ app.use(helmet());
 
 app.use(flash());
 app.use((req,res,next)=>{
+    res.locals.currentUser = req.user;
+    res.locals.alert=req.flash('alert');
    res.locals.success= req.flash('success');
    res.locals.error = req.flash('error');
    next();
@@ -59,6 +62,33 @@ passport.deserializeUser(User.deserializeUser());
 
 app.listen(3000,(req,res)=>{
     console.log('connecting to port 3000!');
+})
+
+app.post('/additem',(req,res)=>{
+  res.render('admin/item');
+})
+
+app.get('/home',async(req,res)=>{
+  const items = await Item.find({});
+  res.render('admin/home',{ items })
+})
+
+app.get('/home/:id',async(req,res)=>{
+  const item = await Item.findById(req.params.id)
+  res.render('admin/show',{ item });
+})
+
+app.post('/home',async(req,res)=>{
+  const item= new Item(req.body.item);
+  await item.save();
+  res.redirect(`/home/${item._id}`)
+})
+
+
+
+app.get('/home/:id/edit',async(req,res)=>{
+  const item = await Item.findById(req.params.id)
+  res.render()
 })
 
 app.use('/',userRoutes);
