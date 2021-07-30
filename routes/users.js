@@ -36,8 +36,13 @@ router.get('/login',(req,res)=>{
 })
 router.post('/login',passport.authenticate('local',{failureFlash: true,failureRedirect:'/login'}),(req,res)=>{
  try{
-      const redirectUrl = req.session.returnTo || '/shop'
+     const  username = req.body.username; 
+    const redirectUrl = req.session.returnTo || '/home'
     delete req.session.returnTo;
+    if(redirectUrl === '/home'){
+    req.session.currentuser = username;
+    return res.redirect('/home')
+    }
      return res.redirect(redirectUrl);
  }catch(e){
  req.flash('error','incorrect username or password') 

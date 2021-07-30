@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') %>
+
+    <form action="/home/<%= item._id %>?_method=PUT " method="POST">
+       <div>  
+            <label for="name">Name</label>
+            <input type="text" id="name" name="item[name]" value="<%= item.name %> ">
+        </div>
+      
+        <div>  
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" id="manufacturer" name="item[manufacturer]"value = <%= item.manufacturer %> >
+        </div>
+
+        <label for="category">Category</label>
+        <select name="item[category]" id="category" >
+        <option value="Men" <%= item.category === 'Men' ? 'selected': '' %>>Men</option>
+        <option value="Women" <%= item.category === 'Women' ? 'selected': '' %>>Women</option>
+        </select>
+  
+        <label for="rating">Rating</label>
+        <select name="item[rating]" id="rating" >
+        <option value="3.0" <%= item.rating === 3.0 ? 'selected': '' %> >3.0</option>
+        <option value="4.0" <%= item.rating === 4.0 ? 'selected': '' %>>4.0</option>
+        <option value="4.5" <%= item.rating === 4.5 ? 'selected': '' %>>4.5</option>
+        <option value="5.0" <%= item.rating === 5.0 ? 'selected': '' %>>5.0</option> 
+        </select>
+
+        <div>  
+            <label for="price">Pricing</label>
+            <input type="text" id="price" name="item[price]" value ="<%= item.price %> ">
+        </div>
+
+        <div>
+            <label for="about">About</label>
+            <textarea name="about" id="about" cols="30" rows="4" ><%= item.about %></textarea>
+        </div>
+     <button type = "submit">UPDATE</button>
+    
+    </form>
+    <form action="/home" method="GET">
+        <input type="submit" value="CANCEL"/>
+    </form>
+    <a href="/home">home</a>

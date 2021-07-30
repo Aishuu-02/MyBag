@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>show</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %>
+
     <h1><%= item.name %> </h1>
-    <h2><%= item.manufacturer %> </h2>
-    
-</body>
-</html>
+    <h2><%= item.manufacturer %> </h2> 
+    <form action="/home/<%= item._id %>?_method=DELETE" method="POST">
+    <button>DELETE</button>
+    </form>
+    <footer>
+        <a href="/home/<%= item._id %>/edit ">EDIT</a>
+        <a href="/home">home</a>
+        <h4>Author:<%= item.author.username %> </h4>
+    </footer>

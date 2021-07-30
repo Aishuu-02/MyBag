@@ -6,6 +6,11 @@ const ItemSchema = new Schema({
     manufacturer:String,
     category :String,
     rating:Number,
-    about:String
+    price:String,
+    about:String,
+    author : {
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    }
 }) ;
 module.exports = mongoose.model('Item',ItemSchema)

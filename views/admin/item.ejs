@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Item</title>
-</head>
-<body>
+<% layout('layouts/boilerplate') %>
+
+
     <form action="/home" method="POST">
        <div>  
             <label for="name">Name</label>
@@ -17,8 +11,36 @@
             <label for="manufacturer">Manufacturer</label>
             <input type="text" id="manufacturer" name="item[manufacturer]">
         </div>
-        <button>ADD</button>
+
+        <label for="category">Category</label>
+        <select name="item[category]" id="category">
+        <option value="Men">Men</option>
+        <option value="Women">Women</option>
+        </select>
+  
+        <label for="rating">Rating</label>
+        <select name="item[rating]" id="rating" >
+            <option value="3.0">3.0</option>
+            <option value="4.0">4.0</option>
+            <option value="4.5">4.5</option>
+            <option value="5.0">5.0</option>
+       
+        </select>
+
+
+        <div>  
+            <label for="price">Pricing</label>
+            <input type="text" id="price" name="item[price]">
+        </div>
+
+        <div>
+            <label for="about">About</label>
+            <textarea name="item[about]" id="about" cols="30" rows="4" ></textarea>
+        </div>
+     <button type = "submit">ADD</button>
+    
+    </form>
+    <form action="/home" method="GET">
+        <input type="submit" value="CANCEL"/>
     </form>
     <a href="/home">home</a>
-</body>
-</html>
