@@ -1,7 +1,6 @@
 <% layout('layouts/boilerplate') %> 
 
-
-    <form action="/register" method="POST"  class="validated-form" novalidate>
+<form action="/register" method="POST"  class="validated-form" novalidate>
     <div class="mb-3">
         <div class="col align-self-center">
             <label for="username" class="form-label">Username</label>
@@ -26,5 +25,9 @@
     </div> 
         <div class="col-12 align-self-center">
           <button class="btn btn-primary" type="submit">REGISTER</button>
-        </div>   
+        </div> 
+        <div>
+          Already have an account?<a href="/login">Login</a>
+        </div>  
     </form>
+

@@ -7,10 +7,6 @@ const ItemSchema = new Schema({
     category :String,
     rating:Number,
     price:String,
-    about:String,
-    author : {
-        type:Schema.Types.ObjectId,
-        ref:'User'
-    }
+    about:String
 }) ;
 module.exports = mongoose.model('Item',ItemSchema)

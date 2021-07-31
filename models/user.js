@@ -6,8 +6,11 @@ const userSchema= new Schema({
    username :{
         type:String,
         required:true
-    }
-
+    }, 
+    role :String
 });
+
+
+
 userSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('User',userSchema);

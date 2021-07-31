@@ -2,11 +2,21 @@
 
     <h1><%= item.name %> </h1>
     <h2><%= item.manufacturer %> </h2> 
+    <% if(user.role !== "Admin"){ %> 
+            <button>MyBag</button>
+            <button>BUY</button> 
+        <% } %> 
+
+    <% if(user.role === "Admin"){ %> 
     <form action="/home/<%= item._id %>?_method=DELETE" method="POST">
     <button>DELETE</button>
+    <% } %> 
     </form>
     <footer>
+        <% if(user.role === "Admin"){ %> 
         <a href="/home/<%= item._id %>/edit ">EDIT</a>
+        <% } %>
+       
+
         <a href="/home">home</a>
-        <h4>Author:<%= item.author.username %> </h4>
     </footer>

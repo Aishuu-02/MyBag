@@ -3,6 +3,8 @@ const router = express.Router();
 const passport = require('passport');
 const User = require('../models/user');
 
+
+
 router.get('/register',(req,res)=>{
     res.render('users/register');
 })
@@ -18,11 +20,11 @@ if (password !== repassword){
       return res.redirect('register');
     }
 } 
-const user = new User({username});
+const user = new User({username,role:"User"});
 const registeredUser = await User.register(user,password);
 req.login(registeredUser,err=>{
     if(err)return next(err);
-    res.redirect('/shop'); 
+    res.redirect('/home'); 
 })
 }
 catch(e){
@@ -32,7 +34,8 @@ catch(e){
 })
 
 router.get('/login',(req,res)=>{
-   res.render('users/login');
+    res.locals.currentUser = req.user;
+    res.render('users/login');
 })
 router.post('/login',passport.authenticate('local',{failureFlash: true,failureRedirect:'/login'}),(req,res)=>{
  try{
@@ -51,7 +54,6 @@ router.post('/login',passport.authenticate('local',{failureFlash: true,failureRe
 })
  router.get('/logout',(req,res)=>{
      req.logout();
-     req.flash('alert',"Logged out!");
      res.redirect('/login');
  })
 

@@ -10,9 +10,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const Item = require('./models/item')
-
+const { isLoggedIn } = require('./views/partials/middleware')
 const userRoutes=require('./routes/users');
-
+const homeRoutes = require('./routes/home');
+const purchaseRoutes = require('./routes/purchase');
 
 mongoose.connect('mongodb://localhost:27017/register', {
     useNewUrlParser: true,
@@ -53,11 +54,11 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req,res,next)=>{
-    res.locals.currentUser = req.user;
-    res.locals.alert=req.flash('alert');
-   res.locals.success= req.flash('success');
-   res.locals.error = req.flash('error');
-   next();
+  res.locals.currentUser = req.user;
+  res.locals.alert=req.flash('alert');
+  res.locals.success= req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
 })
 
 
@@ -65,48 +66,8 @@ app.listen(3000,(req,res)=>{
     console.log('connecting to port 3000!');
 })
 
-app.post('/additem',(req,res)=>{
-  res.render('admin/item');
-})
-
-app.get('/home',async(req,res)=>{
-  const username = req.session.currentuser;
-  const items = await Item.find({});
-  const user = await User.find({})
-  res.render('admin/home',{ items,user,username })
-})
-
-app.get('/home/:id',async(req,res)=>{
-  const item = await Item.findById(req.params.id).populate("author");
-  
-  res.render('admin/show',{ item});
-})
-
-app.post('/home',async(req,res)=>{
-  const item= new Item(req.body.item);
-  item.author = '6101c2718f0d3e1568233371';
-  await item.save();
-  res.redirect(`/home/${item._id}`)
-})
-
-
-
-app.get('/home/:id/edit',async(req,res)=>{
-  const item = await Item.findById(req.params.id)
-  res.render('admin/edit',{item});
-})
-
-app.put('/home/:id',async(req,res)=>{
-  const { id } = req.params;
-  const item = await Item.findByIdAndUpdate(id,{...req.body.item})
-  res.redirect(`/home/${item._id}`)
-})
-
-app.delete('/home/:id',async(req,res)=>{
-  const { id } = req.params;
-  await Item.findByIdAndDelete(id);
-  res.redirect('/home');
-})
 
 
 app.use('/',userRoutes);
+app.use('/home',homeRoutes);
+app.use('/purchase',purchaseRoutes);
