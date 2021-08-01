@@ -5,14 +5,18 @@ const Item = require('../models/item');
 const User = require('../models/user')
 const { isLoggedIn } = require('../views/partials/middleware')
 
-router.post('/additem',isLoggedIn, (req,res)=>{
-    res.render('admin/item');
+router.get('/additem',isLoggedIn, async(req,res)=>{
+  const username = req.session.currentuser;
+  const user = await User.findOne({username})
+  console.log(user);
+    res.render('admin/item',{user,username});
   })
   
 router.get('/',isLoggedIn,async(req,res)=>{
     const username = req.session.currentuser;
     const items = await Item.find({});
     const user = await User.findOne({username})
+    console.log(user);
     res.render('admin/home',{ items,user,username })
   })
   

@@ -1,46 +1,101 @@
-<% layout('layouts/boilerplate') %>
-
-
-    <form action="/home" method="POST">
-       <div>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="../../css/item.css" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyBag</title>
+</head>
+<body>
+  <h3 style="color: white;text-transform:uppercase;padding-top:10px;padding-left: 10px;">Hello, <%=username%> </h3>
+  <nav class="sidebar">
+  <div class="w3-sidebar w3-black w3-bar-block sidebar" style="width:20%;right:0;top:0">
+    <a href="logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
+    <span class="dot"></span>
+    <p style="text-transform: uppercase;" class=" w3-bar-item sidebar"><%= username %> </p>
+    <a href="home" class="w3-bar-item sidebar">HOME</a>
+    <% if(user.role === "Admin"){  %> 
+    <p style="padding-left: 7%;">ADD ITEM</p>
+    <% } %> 
+    <% if(user.role !== "Admin"){  %> 
+      <a href="home/mybag" class="w3-bar-item sidebar">MY BAG</a>
+      <% } %> 
+    <img src="../../images/Logo/mybagshop-white.png" alt="" class="displayed">
+  
+  </div>
+</nav>
+  
+<section>
+<form action="/home" method="POST">
+    <div class="form-row" style="padding-left: 10%;padding-top: 10%;">
+        <div class="form-group col-md-6">
             <label for="name">Name</label>
-            <input type="text" id="name" name="item[name]">
+            <input type="text" class="form-control" id="name" name="item[name]" placeholder="Enter item name">
         </div>
       
-        <div>  
+        <div class="form-group col-md-6">  
             <label for="manufacturer">Manufacturer</label>
-            <input type="text" id="manufacturer" name="item[manufacturer]">
+            <input type="text" class="form-control" id="manufacturer" name="item[manufacturer]" placeholder="Enter manufacturer name">
         </div>
+          
 
+        <div class="form-row">
+        <div class="form-group col-md-4">     
         <label for="category">Category</label>
-        <select name="item[category]" id="category">
+        <select name="item[category]" class="form-control" id="category">
         <option value="Men">Men</option>
         <option value="Women">Women</option>
         </select>
-  
+        </div>
+        <div class="form-group col-md-4"> 
         <label for="rating">Rating</label>
-        <select name="item[rating]" id="rating" >
+        <select class="form-control" name="item[rating]" id="rating" >
             <option value="3.0">3.0</option>
             <option value="4.0">4.0</option>
             <option value="4.5">4.5</option>
             <option value="5.0">5.0</option>
        
         </select>
-
-
-        <div>  
+        </div>
+        <div class="form-group col-md-4">  
             <label for="price">Pricing</label>
-            <input type="text" id="price" name="item[price]">
+            <input type="text" class="form-control" id="price" name="item[price]" placeholder="10">
+        </div>
+        </div>
+        <div class="form-group col-md-8">
+            <label for="image">Image URL</label>
+            <input type="text" class="form-control" name="item[image]" id="image" placeholder="Enter image URL">
         </div>
 
-        <div>
+        <div class="form-group col-md-8">
             <label for="about">About</label>
-            <textarea name="item[about]" id="about" cols="30" rows="4" ></textarea>
+            <textarea name="item[about]" id="about" cols="30" class="form-control" rows="4" placeholder="About item"></textarea>
         </div>
      <button type = "submit">ADD</button>
-    
+    </div>
     </form>
     <form action="/home" method="GET">
         <input type="submit" value="CANCEL"/>
     </form>
     <a href="/home">home</a>
+</section>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+    integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+    crossorigin="anonymous"></script>
+  
+  <script src='/js/validateForms.js'></script>
+  </body>
+  </html>
+  
+  
+  
+  

@@ -12,6 +12,7 @@ router.get('/register',(req,res)=>{
 router.post('/register',async(req,res)=>{
     try{
 const {username,password,repassword}=req.body;
+req.session.currentuser = username;
 if (password !== repassword){
     try{
     throw 'passwords must be same';
@@ -39,11 +40,11 @@ router.get('/login',(req,res)=>{
 })
 router.post('/login',passport.authenticate('local',{failureFlash: true,failureRedirect:'/login'}),(req,res)=>{
  try{
-     const  username = req.body.username; 
+    const  username = req.body.username; 
+    req.session.currentuser=username;
     const redirectUrl = req.session.returnTo || '/home'
     delete req.session.returnTo;
     if(redirectUrl === '/home'){
-    req.session.currentuser = username;
     return res.redirect('/home')
     }
      return res.redirect(redirectUrl);

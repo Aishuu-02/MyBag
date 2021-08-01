@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="../../public/css/login.css" type="text/css">
+  <link rel="stylesheet" href="../../css/login.css" type="text/css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
@@ -11,7 +11,10 @@
   <title>myBag</title>
 </head>
 <body>
-  <form action="/login" method="POST"  class="validated-form" novalidate>
+  <section>
+
+    <img class="displayed" src="../../images/Logo/mybagshop-white.png" alt="">
+  <form  action="/login" method="POST"  class="validated-form" novalidate >
     <div class="mb-3">
         <div class="col align-self-center">
             <label for="username" class="form-label">Username</label>
@@ -26,15 +29,15 @@
         </div>
       </div>
       <%- include('../partials/flash')%> 
-        <div class="col-12 align-self-center">
-          <button class="btn btn-primary" type="submit">LOGIN</button>
+        <div >
+          <button class="button" type="submit">LOGIN</button>
         </div>  
         <div>
           <label for="href">New to MyBag.shop?</label>
           <a href="register">Register</a>
         </div> 
     </form>
-
+</section>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
