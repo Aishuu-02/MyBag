@@ -70,11 +70,11 @@ section{
   .item{
   padding-right: 10%;  
   }
-.add{
+.update{
 text-align: left;
 font-family: Verdana, Geneva, Tahoma, sans-serif;
 letter-spacing: 0.4px;
-padding:1% 7% 1% 7%;
+padding:1% 5% 1% 5%;
 border-radius: 20px;
 outline: none;
 margin-top: 2%;
@@ -95,4 +95,8 @@ margin-right: 2%;
 color: #FFFFFF;
 background-color: #000;
 opacity: 1;
+}
+.form-control{
+    border-top-right-radius:3px;
+    border-top-right-radius:3px;
 }

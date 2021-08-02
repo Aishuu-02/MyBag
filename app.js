@@ -13,7 +13,6 @@ const Item = require('./models/item')
 const { isLoggedIn } = require('./views/partials/middleware')
 const userRoutes=require('./routes/users');
 const homeRoutes = require('./routes/home');
-const purchaseRoutes = require('./routes/purchase');
 
 mongoose.connect('mongodb://localhost:27017/register', {
     useNewUrlParser: true,
@@ -70,4 +69,3 @@ app.listen(3000,(req,res)=>{
 
 app.use('/',userRoutes);
 app.use('/home',homeRoutes);
-app.use('/purchase',purchaseRoutes);

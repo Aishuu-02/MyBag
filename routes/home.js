@@ -24,7 +24,7 @@ router.get('/:id',isLoggedIn,async(req,res)=>{
   const username = req.session.currentuser;
   const item = await Item.findById(req.params.id);
   const user = await User.findOne({username})  
-  res.render('admin/show',{ item,user});
+  res.render('admin/show',{ item,user,username});
   })
   
 router.post('/',async(req,res)=>{
@@ -36,8 +36,10 @@ router.post('/',async(req,res)=>{
   
   
 router.get('/:id/edit',isLoggedIn,async(req,res)=>{
+  const username = req.session.currentuser;
+  const user = await User.findOne({username})
     const item = await Item.findById(req.params.id)
-    res.render('admin/edit',{item});
+    res.render('admin/edit',{item, username,user});
   })
   
 router.put('/:id',isLoggedIn,async(req,res)=>{

@@ -10,80 +10,125 @@
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function check(){
+      if(document.getElementById("name").value===""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("manufacturer").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("category").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("rating").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("price").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("image").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+      if(document.getElementById("about").value==""){
+        req.flash('error','please enter this field');
+        return false;
+      }
+
+    }
+  </script>
   <title>MyBag</title>
 </head>
 <body>
   <h3 style="color: white;text-transform:uppercase;padding-top:10px;padding-left: 10px;">Hello, <%=username%> </h3>
   <nav class="sidebar">
   <div class="w3-sidebar w3-black w3-bar-block sidebar" style="width:20%;right:0;top:0">
-    <a href="logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
+    <a href="/logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
     <span class="dot"></span>
     <p style="text-transform: uppercase;" class=" w3-bar-item sidebar"><%= username %> </p>
-    <a href="home" class="w3-bar-item sidebar">HOME</a>
+    <a href="/home" class="w3-bar-item sidebar">HOME</a>
     <% if(user.role === "Admin"){  %> 
     <p style="padding-left: 7%;">ADD ITEM</p>
     <% } %> 
     <% if(user.role !== "Admin"){  %> 
       <a href="home/mybag" class="w3-bar-item sidebar">MY BAG</a>
       <% } %> 
-    <img src="../../images/Logo/mybagshop-white.png" alt="" class="displayed">
+      <a href="/home">
+        <img src="../../images/Logo/mybagshop-white.png" alt="" class="displayed">
+      </a>
   
   </div>
 </nav>
   
-<section>
-<form action="/home" method="POST">
-    <div class="form-row" style="padding-left: 10%;padding-top: 10%;">
+<section class="container">
+  <h4 style=" font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:bold;">ADD ITEM</h4>
+<form action="/home" method="POST"  onsubmit="return check()">
+    <div class="form-row outer">
         <div class="form-group col-md-6">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" name="item[name]" placeholder="Enter item name">
-        </div>
+            <input type="text" class="form-control "required id="name" name="item[name]" placeholder="Enter item name">   
+          </div>
       
         <div class="form-group col-md-6">  
             <label for="manufacturer">Manufacturer</label>
-            <input type="text" class="form-control" id="manufacturer" name="item[manufacturer]" placeholder="Enter manufacturer name">
-        </div>
-          
-
-        <div class="form-row">
-        <div class="form-group col-md-4">     
-        <label for="category">Category</label>
-        <select name="item[category]" class="form-control" id="category">
+            <input type="text" class="form-control"required id="manufacturer" name="item[manufacturer]" placeholder="Enter manufacturer name">
+                 
+          </div>
+                 
+ 
+        <div class="form-row inner">
+        <div class=" form-group col-3">     
+        <label for="category" >Category</label>
+        <select name="item[category]" id="category item" class="form-control " required>
         <option value="Men">Men</option>
         <option value="Women">Women</option>
         </select>
+       
         </div>
-        <div class="form-group col-md-4"> 
+        <div class="form-group col-3"> 
         <label for="rating">Rating</label>
-        <select class="form-control" name="item[rating]" id="rating" >
+        <select  name="item[rating]" id="rating item" class="form-control" required>
             <option value="3.0">3.0</option>
             <option value="4.0">4.0</option>
             <option value="4.5">4.5</option>
             <option value="5.0">5.0</option>
        
         </select>
+        
         </div>
-        <div class="form-group col-md-4">  
+        <div class="col-3">  
             <label for="price">Pricing</label>
-            <input type="text" class="form-control" id="price" name="item[price]" placeholder="10">
+            <input type="text"  id="price item" name="item[price]" class="form-control"required placeholder="10">
         </div>
+       
         </div>
         <div class="form-group col-md-8">
             <label for="image">Image URL</label>
-            <input type="text" class="form-control" name="item[image]" id="image" placeholder="Enter image URL">
-        </div>
+            <input type="text" class="form-control"required  name="item[image]" id="image" placeholder="Enter image URL">
+      
+          </div>
 
         <div class="form-group col-md-8">
             <label for="about">About</label>
-            <textarea name="item[about]" id="about" cols="30" class="form-control" rows="4" placeholder="About item"></textarea>
-        </div>
-     <button type = "submit">ADD</button>
+            <textarea name="item[about]" id="about" cols="30" class="form-control"required rows="4" placeholder="About item"></textarea>
+           
+          </div>
+          <%- include('../partials/flash')%>
+     <button type = "submit" class="add" >ADD</button>
+    
+     <form action="/home" method="GET">
+        <input type="submit" class="cancel" value="CANCEL"/>
+    </form>
     </div>
     </form>
-    <form action="/home" method="GET">
-        <input type="submit" value="CANCEL"/>
-    </form>
-    <a href="/home">home</a>
+    
 </section>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -92,7 +137,7 @@
     integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
     crossorigin="anonymous"></script>
   
-  <script src='/js/validateForms.js'></script>
+ 
   </body>
   </html>
   

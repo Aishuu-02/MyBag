@@ -17,8 +17,8 @@ if (password !== repassword){
     try{
     throw 'passwords must be same';
     }catch(e){
-        req.flash('error',e);
-      return res.redirect('register');
+    req.flash('error',e);
+    return res.redirect('register');
     }
 } 
 const user = new User({username,role:"User"});

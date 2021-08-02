@@ -1,22 +1,95 @@
-<% layout('layouts/boilerplate') %>
-
-    <h1><%= item.name %> </h1>
-    <h2><%= item.manufacturer %> </h2> 
-    <% if(user.role !== "Admin"){ %> 
-            <button>MyBag</button>
-            <button>BUY</button> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../../css/show.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <title>MyBag</title>
+</head>
+<body>
+    <h3 style="color: white;text-transform:uppercase;padding-top:10px;padding-left: 10px;font-family: Verdana, Geneva, Tahoma, sans-serif;">Hello, <%=username%> </h3>
+    <nav class="sidebar">
+    <div class="w3-sidebar w3-black w3-bar-block sidebar" style="width:20%;right:0;top:0">
+      <a href="/logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
+      <span class="dot"></span>
+      <p style="text-transform: uppercase;" class=" w3-bar-item sidebar"><%= username %> </p>
+      <a href="/home" class="w3-bar-item sidebar">HOME</a>
+      <% if(user.role === "Admin"){  %> 
+      <p style="padding-left: 7%;">ADD ITEM</p>
+      <% } %> 
+      <% if(user.role !== "Admin"){  %> 
+        <a href="home/mybag" class="w3-bar-item sidebar">MY BAG</a>
         <% } %> 
-
-    <% if(user.role === "Admin"){ %> 
-    <form action="/home/<%= item._id %>?_method=DELETE" method="POST">
-    <button>DELETE</button>
-    <% } %> 
-    </form>
-    <footer>
+        <a href="/home">
+          <img src="../../images/Logo/mybagshop-white.png" alt="" class="displayed">
+        </a>
+    
+    </div>
+  </nav>
+  <section style="font-weight: 500;">
+  <div style="font-family:Verdana, Geneva, Tahoma, sans-serif;display: flex;padding-top:5%;margin-left: 5%; justify-content: space-between;max-width: 200px;">
+    <a href="/home"><img id="icon1"src="../../images/Icons/left-arrow.png"alt=""></a>
+    <h4>ITEM DETAILS</h4>
+   </div>
+   <% if(user.role === "Admin") { %> 
+   <div class="outer" style="display: flex;">
+      <a href="/home/<%= item._id %>" ><img class="displayed1"src="../../images/<%=item.image%> " alt="">  </a>
+    <div id="inner" style="display: flex; flex-direction: column;">
+        <h4><%= item.name %> </h4>
+        <div>By <%=item.manufacturer%></div>
+        <div style="color: orange;">Rating <%= item.rating %></div>
+        <div id="price"><%= item.price %></div>      
+        <% if(user.role !== "Admin"){ %> 
+            <button>BUY</button> 
+        <% } %>     
+    </div>  
+    <div id="inneri">
         <% if(user.role === "Admin"){ %> 
-        <a href="/home/<%= item._id %>/edit ">EDIT</a>
-        <% } %>
-       
+            <a href="/home/<%= item._id %>/edit "><img id="icon1" src="../../images/Icons/pencil.png" alt=""></a>
+            <% } %>
+            <% if(user.role === "Admin"){ %> 
+                <form action="/home/<%= item._id %>?_method=DELETE" method="POST">
+                <button><img id="icon2" src="../../images/Icons/delete.png" alt=""></button>
+                <% } %> 
+                </form>
+    </div>
+</div>
+<% } %> 
 
-        <a href="/home">home</a>
-    </footer>
+ <% if(user.role!=="Admin"){ %> 
+    <div class="outer" style="display: flex;">
+        <a href="/home/<%= item._id %>" ><img class="displayed1"src="../../images/<%=item.image%> " alt="">  </a>
+      <div id="inneru" style="display: flex; flex-direction: column;">
+          <h4><%= item.name %> </h4>
+          <div>By <%=item.manufacturer%></div>
+          <div style="color: orange;">Rating <%= item.rating %></div>
+          <div id="price"><%= item.price %></div>      
+          <% if(user.role !== "Admin"){ %> 
+              <button id="buy">BUY</button> 
+          <% } %>     
+      </div>  
+    </div> 
+  <% } %> 
+
+  <div style="margin-left: 10%;">
+    <h5>ABOUT ITEM</h5>
+    <p><%=item.about %> </p>
+</div> 
+    </section>
+
+    
+        
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+    

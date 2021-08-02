@@ -3,7 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../../css/edit.css" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+          integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+      <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function check(){
+          console.log("in function");
+          if(document.getElementById("name").value===""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("manufacturer").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("category").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("rating").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("price").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("image").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+          if(document.getElementById("about").value==""){
+            req.flash('error','please enter this field');
+            return false;
+          }
+    
+        }
+      </script>
     <title>mybag</title>
 </head>
 <body>
@@ -11,65 +50,86 @@
 <h3 style="color: white;text-transform:uppercase;padding-top:10px;padding-left: 10px;">Hello,<%=username%> </h3>
   <nav class="sidebar">
   <div class="w3-sidebar w3-black w3-bar-block sidebar" style="width:20%;right:0;top:0">
-    <a href="logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
+    <a href="/logout" style="padding-left: 60%;padding-top: 10%;" class="w3-bar-item sidebar ">LOG OUT</a>
     <span class="dot"></span>
     <p style="text-transform: uppercase;" class=" w3-bar-item sidebar"><%= username %> </p>
-    <a href="home" class="w3-bar-item sidebar">HOME</a>
+    <a href="/home" class="w3-bar-item sidebar">HOME</a>
     <% if(user.role === "Admin"){  %> 
     <a href="home/additem" class="w3-bar-item sidebar">ADD ITEM</a>
     <% } %> 
     <% if(user.role !== "Admin"){  %> 
       <a href="home/mybag" class="w3-bar-item sidebar">MY BAG</a>
-      <% } %> 
-    <img src="../../images/Logo/mybagshop-white.png" alt="" class="displayed">
-  
+      <% } %>
+      <a href="/home"> 
+    <img src=" ../../images/Logo/mybagshop-white.png" alt="" class="displayed">
+      </a>
   </div>
 </nav>
-
-<section>
-    <form action="/home/<%= item._id %>?_method=PUT " method="POST">
-       <div>  
+<section class="container">
+    <h4 style=" font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight:bold;">UPDATE ITEM</h4>
+    
+    <form action="/home/<%= item._id %>?_method=PUT " method="POST" onsubmit="return click()">
+        <div class="form-row outer">
+            <div class="form-group col-md-6">
             <label for="name">Name</label>
-            <input type="text" id="name" name="item[name]" value="<%= item.name %> ">
-        </div>
-      
-        <div>  
+            <input type="text" id="name" name="item[name]"  class="form-control" value="<%= item.name %> ">
+            </div>
+    
+        <div class="form-group col-md-6">
             <label for="manufacturer">Manufacturer</label>
-            <input type="text" id="manufacturer" name="item[manufacturer]"value = <%= item.manufacturer %> >
+            <input type="text" id="manufacturer"class="form-control" name="item[manufacturer]"value = <%= item.manufacturer %> >
         </div>
+        
 
+        <div class="form-row inner">
+        <div class=" form-group col-3">  
         <label for="category">Category</label>
-        <select name="item[category]" id="category" >
+        <select name="item[category]" id="category" class="form-control">
         <option value="Men" <%= item.category === 'Men' ? 'selected': '' %>>Men</option>
         <option value="Women" <%= item.category === 'Women' ? 'selected': '' %>>Women</option>
         </select>
-  
+        </div>
+        <div class=" form-group col-3">  
         <label for="rating">Rating</label>
-        <select name="item[rating]" id="rating" >
+        <select name="item[rating]" id="rating" class="form-control">
         <option value="3.0" <%= item.rating === 3.0 ? 'selected': '' %> >3.0</option>
         <option value="4.0" <%= item.rating === 4.0 ? 'selected': '' %>>4.0</option>
         <option value="4.5" <%= item.rating === 4.5 ? 'selected': '' %>>4.5</option>
         <option value="5.0" <%= item.rating === 5.0 ? 'selected': '' %>>5.0</option> 
         </select>
+        </div>
 
-        <div>  
+        <div class=" form-group col-3">  
             <label for="price">Pricing</label>
-            <input type="text" id="price" name="item[price]" value ="<%= item.price %> ">
+            <input type="text" id="price" name="item[price]"class="form-control" value ="<%= item.price %> ">
+        </div>
+        </div>
+        <div class="form-group col-md-8">
+            <label for="image">Image URL</label>
+            <input type="text" class="form-control" name="item[image]" id="image" value="<%= item.image %> " placeholder="Enter image URL">
         </div>
 
-        <div>
+        <div class="form-group col-md-8">
             <label for="about">About</label>
-            <textarea name="about" id="about" cols="30" rows="4" ><%= item.about %></textarea>
+            <textarea name="about" id="about" cols="30" rows="4" class="form-control"><%= item.about %></textarea>
         </div>
-     <button type = "submit">UPDATE</button>
-    
+     <button class="update" type = "submit">UPDATE</button>
+     <form action="/home" method="GET">
+        <input type="submit" class="cancel" value="CANCEL"/>
     </form>
-    <form action="/home" method="GET">
-        <input type="submit" value="CANCEL"/>
     </form>
-    <a href="/home">home</a>
+</div>
 
 </section>    
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+crossorigin="anonymous"></script>
+
+<script src='/js/validateForms.js'></script>
 </body>
 </html>
 
