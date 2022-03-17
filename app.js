@@ -66,6 +66,5 @@ app.listen(3000,(req,res)=>{
 })
 
 
-
 app.use('/',userRoutes);
 app.use('/home',homeRoutes);
